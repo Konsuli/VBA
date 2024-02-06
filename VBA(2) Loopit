@@ -1,1 +1,71 @@
+Sub For_treeni()
+Const alue = "viher"
+Const viisi = 5
+Const s = 1
+Dim r, luku As Integer
 
+luku = 0
+For r = 1 To Range(alue).Rows.Count
+    If luku = viisi Then
+        luku = 1
+    Else
+        luku = luku + 1
+    End If
+    Range(alue).Cells(r, s).Value = luku
+Next
+
+End Sub
+
+
+
+
+Sub while_treeni()
+Const tilasto = "tilasto"
+Const alue = "viher"
+Const s = 3
+Const ylin = 100
+Const alin = 0
+
+Dim r  As Integer
+Dim yht, suurin, pienin As Double
+
+yht = 0
+suurin = alin
+pienin = ylin
+r = 0
+Do While r < Range(alue).Rows.Count
+    r = r + 1
+    yht = yht + Range(alue).Cells(r, s).Value
+    If Range(alue).Cells(r, s).Value > suurin Then
+        suurin = Range(alue).Cells(r, s).Value
+    ElseIf Range(alue).Cells(r, s).Value < pienin Then
+        pienin = Range(alue).Cells(r, s).Value
+    End If
+Loop
+Range(tilasto).Cells(1, 1).Value = yht
+Range(tilasto).Cells(2, 1).Value = pienin
+Range(tilasto).Cells(3, 1).Value = suurin
+
+End Sub
+
+
+
+
+Sub until_treeni()
+Const alue = "viher"
+Const ylin = 30
+Const raja = 20
+Const s = 2
+Dim r, luku As Integer
+
+r = 0
+Do
+    r = r + 1
+    luku = 1 + Int(ylin * Rnd())
+    Range(alue).Cells(r, s).Value = luku
+    If luku >= raja Then
+        With Range(alue).Cells(r, s).Font
+        .Color = -16776961
+        End With
+    End If
+Loop Until r = Range(alue).Rows.Count
