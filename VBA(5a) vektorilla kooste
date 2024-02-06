@@ -1,0 +1,110 @@
+Option Explicit
+Const piirit = "piirit"
+Const laitteet = "laitteet"
+Const viikkoja = 52
+Const piireja = 5
+Const laitteita = 3
+
+Dim myynnit(viikkoja, piireja, laitteita) As Long
+Dim piiri As Integer 'piirien nro
+Dim laite As Integer 'laitteen nro
+Dim viikko As Integer
+Dim arkki As String
+Sub keraa_kaikki()
+lue
+kirjoita
+yhteenveto
+End Sub
+Sub lue()
+
+For piiri = 1 To piireja
+    arkki = Range(piirit).Cells(piiri, 1).Value
+    For viikko = 1 To viikkoja
+        For laite = 1 To laitteita
+            myynnit(viikko, piiri, laite) = Sheets(arkki).Cells(viikko + 1, laite + 1).Value
+        Next
+    Next
+Next
+MsgBox (myynnit(4, 3, 2))
+End Sub
+Sub kirjoita()
+
+Dim r, s As Integer
+
+r = 2
+
+For viikko = 1 To viikkoja
+    For piiri = 1 To piireja
+        For laite = 1 To laitteita
+            Cells(r, 1).Value = viikko
+            Cells(r, 2).Value = Range(piirit).Cells(piiri, 1).Value
+            Cells(r, 3).Value = Range(laitteet).Cells(laite, 1).Value
+            Cells(r, 4).Value = myynnit(viikko, piiri, laite)
+            r = r + 1
+        Next
+    Next
+Next
+
+End Sub
+
+Sub yhteenveto()
+Const keltsu = "yhteenveto"
+Dim r, s As Integer
+Dim yht As Long
+
+'piireittain ja laitteittain
+r = 1
+For piiri = 1 To piireja
+    s = 1
+    For laite = 1 To laitteita
+        yht = 0
+        For viikko = 1 To viikkoja
+            yht = yht + myynnit(viikko, piiri, laite)
+        Next
+        Range(keltsu).Cells(r, s).Value = yht
+        s = s + 1
+    Next
+    r = r + 1
+Next
+
+'pysty yhteensä
+r = piireja + 1
+    For laite = 1 To laitteita
+    s = laite
+    yht = 0
+        For piiri = 1 To piireja
+            For viikko = 1 To viikkoja
+                yht = yht + myynnit(viikko, piiri, laite)
+            Next
+        Next
+    Range(keltsu).Cells(r, s).Value = yht
+Next
+
+'vaaka yhteensä
+s = laitteita + 1
+For piiri = 1 To piireja
+    r = piiri
+    yht = 0
+        For laite = 1 To laitteita
+        For viikko = 1 To viikkoja
+            yht = yht + myynnit(viikko, piiri, laite)
+        Next
+    Next
+    Range(keltsu).Cells(r, s).Value = yht
+Next
+
+'kaikki yhteensä
+s = laitteita + 1
+r = piireja + 1
+yht = 0
+For piiri = 1 To piireja
+    For laite = 1 To laitteita
+        For viikko = 1 To viikkoja
+            yht = yht + myynnit(viikko, piiri, laite)
+        Next
+    Next
+    Range(keltsu).Cells(r, s).Value = yht
+Next
+
+
+End Sub
