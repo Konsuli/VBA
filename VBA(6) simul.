@@ -1,0 +1,64 @@
+Option Explicit
+Const lkm = "lkm" 'opiskelijoiden lkm
+Const kysymyslkm = "kysymyslkm"
+Const oikeasta = "oikeasta"
+Const vaarasta = "vaarasta"
+Const tyhjasta = "tyhjasta"
+Const tietoja = "tietoja"
+Const tyhjia = "tyhjia"
+Const arvauksia = "arvauksia"
+Const arvotut = "arvotut"
+Sub tentti()
+Const lkm = "lkm"
+Dim r As Integer
+
+Dim tulos As Integer
+Dim i As Integer
+
+Application.ScreenUpdating = False
+tyhjenna
+
+For i = 1 To Range(lkm).Value
+    tulos = pisteita()
+    r = 1
+    Do While Range(arvotut).Cells(r, 1).Value < tulos
+        r = r + 1
+    Loop
+    Range(arvotut).Cells(r, 2).Value = Range(arvotut).Cells(r, 2).Value + 1
+Next
+Application.ScreenUpdating = True
+End Sub
+
+Function pisteita() As Integer
+Dim i As Integer
+Dim oikeinarvattuja As Integer
+
+oikeinarvattuja = 0
+For i = 1 To Range(arvauksia).Value
+    If Rnd() > 0.5 Then
+        oikeinarvattuja = oikeinarvattuja + 1
+    End If
+Next
+pisteita = Range(tietoja).Value * Range(oikeasta).Value + _
+Range(tyhjia).Value * Range(tyhjasta).Value + _
+oikeinarvattuja * Range(oikeasta).Value + _
+(Range(arvauksia).Value - oikeinarvattuja) * Range(vaarasta).Value
+'MsgBox (pisteita)
+End Function
+
+
+Sub tyhjenna()
+Dim r As Integer
+    For r = 1 To Range(arvotut).Rows.Count
+        Range(arvotut).Cells(r, 2).Value = ""
+    Next
+End Sub
+Sub kuvaaja()
+    ActiveSheet.ChartObjects("Chart 2").Activate
+    If ActiveChart.ChartType = xl3DColumnClustered Then
+        ActiveChart.ChartType = xl3DPie
+    Else
+        ActiveChart.ChartType = xl3DColumnClustered
+    End If
+    Range("A2").Select
+End Sub
