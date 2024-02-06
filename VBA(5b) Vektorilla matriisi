@@ -1,0 +1,23 @@
+Sub matriisi()
+Const maita = 3
+Const kuita = 12
+Const nyt = "nyt"
+Const sit = "sit"
+Dim v(maita, kuita) As Long
+Dim maa, kuu As Integer
+
+'arkilta vektoriin
+For maa = 1 To maita
+    For kuu = 1 To kuita
+        v(maa, kuu) = Range(nyt).Cells(kuu, maa).Value
+    Next
+Next
+
+'vektorista arkille
+For maa = 1 To maita
+For kuu = 1 To kuita
+    Range(sit).Cells(maa, kuu).Value = v(maa, kuu)
+Next
+Next
+
+End Sub
