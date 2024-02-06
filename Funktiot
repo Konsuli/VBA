@@ -1,0 +1,33 @@
+Funktiot: vlookup, hlookup, match, offset, index, sum, iserror, sumifs, averageifs, countifs, count, counta.
+
+Syntaksit:
+=COUNT(E2:E304)
+=COUNTA(E2:E304)
+=IF(ISERROR(J15);"UUSI";"")
+=MATCH(I15;$D$2:$D$304;0)
+=SUBSTITUTE()
+=LOWER()
+=FIND(".";E2)
+=PROPER()
+=RIGHT()
+=LEFT()
+
+
+vastaus = MsgBox("Oletko poika?", vbYesNo)
+If vastaus = vbYes Then
+    s = 2 'poika
+Else
+    s = 3 'tyttö
+End If
+
+
+
+ika = Val(InputBox("Ikäsi?"))
+r = 0
+Do
+    r = r + 1
+Loop Until Range(lajit).Cells(r, 1).Value <= ika And Range(lajit).Cells(r + 1, 1).Value > ika _
+Or r = Range(lajit).Rows.Count
+
+MsgBox ("Sinulle sopii " & Range(lajit).Cells(r, s).Value)
+End Sub
