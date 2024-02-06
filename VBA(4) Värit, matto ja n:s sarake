@@ -1,0 +1,99 @@
+Option Explicit
+Const vyk = "vyk"
+Dim r, s As Integer
+Sub matto()
+Const rivei = "r_lkm"
+Const sarakkei = "s_lkm"
+Const viisi = 5
+
+Dim naps As Integer
+Dim i As Integer
+Dim sinisenvuoro, ekasininen As Boolean
+
+r = 1
+s = 1
+naps = MsgBox("Alkaako sininen?", vbYesNo)
+
+'aloitus
+
+If naps = vbYes Then
+    ekasininen = True
+    sinisenvuoro = True
+Else
+    ekasininen = False
+    sinisenvuoro = False
+End If
+
+
+For r = 1 To Range(rivei).Value
+    i = 0 'i laskee viiteen
+    For s = 1 To Range(sarakkei).Value
+        i = i + 1
+        If i = viisi Then
+            punainen
+            i = 0
+        Else
+            If sinisenvuoro Then
+                sininen
+                sinisenvuoro = False 'sit keltainen
+            Else
+                keltainen
+                sinisenvuoro = True 'sit sininen
+            End If
+        End If
+    Next
+
+    'seuraavan rivin aloitus
+    If ekasininen Then
+        ekasininen = False
+        sinisenvuoro = False
+    Else
+        ekasininen = True
+        sinisenvuoro = True
+    End If
+Next
+
+
+End Sub
+
+
+
+
+Sub keltainen()
+With Range(vyk).Cells(r, s).Interior
+        .Color = 65535
+    End With
+End Sub
+
+
+
+Sub sininen()
+    With Range(vyk).Cells(r, s).Interior
+        .ThemeColor = xlThemeColorLight2
+    End With
+End Sub
+
+
+
+Sub punainen()
+    With Range(vyk).Cells(r, s).Interior
+        .Color = 255
+    End With
+    With Range(vyk).Cells(r, s).Interior
+        .ThemeColor = xlThemeColorAccent2
+    End With
+End Sub
+
+
+
+Sub siivoa()
+    ActiveCell.SpecialCells(xlLastCell).Select
+    Range(Selection, Cells(1)).Select
+    With Selection.Interior
+        .Pattern = xlNone
+        .TintAndShade = 0
+        .PatternTintAndShade = 0
+    End With
+    Range("A1").Select
+End Sub
+
