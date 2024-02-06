@@ -1,0 +1,13 @@
+Funktiot: vlookup, hlookup, match, offset, index, sum, iserror, sumifs, averageifs, countifs, count, counta.
+
+Syntaksit:
+=COUNT(E2:E304)
+=COUNTA(E2:E304)
+=IF(ISERROR(J15);"UUSI";"")
+=MATCH(I15;$D$2:$D$304;0)
+=SUBSTITUTE()
+=LOWER()
+=FIND(".";E2)
+=PROPER()
+=RIGHT()
+=LEFT()
