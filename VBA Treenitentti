@@ -1,0 +1,139 @@
+HAASTAVA
+
+ption Explicit
+Const sotku = "sotku"
+Const siisti = "siisti1"
+Const maat = "maat1"
+Const ryhmat = "ryhmat1"
+Const mista_vyk = "nurkka" 'vyk = vasen yläkulma
+Const mihin_vyk = "snurkka1"
+Const maita = 4
+Const ryhmia = 3
+Const viikkoja = 52
+
+Dim myy(viikkoja, ryhmia, maita) As Long
+Dim vko, ryhma, maa As Integer
+
+Sub haastava()
+'pääohjelma
+lue
+kirjoita
+End Sub
+
+Sub lue()
+Dim s As Integer
+
+For vko = 1 To viikkoja
+    s = 1
+    For ryhma = 1 To ryhmia
+        For maa = 1 To maita
+            myy(vko, ryhma, maa) = Range(mista_vyk).Cells(vko, s).Value
+            s = s + 1
+        Next
+    Next
+Next
+
+'MsgBox (myy(2, 2, 2))
+End Sub
+Sub kirjoita()
+Dim solu As Long
+
+For maa = 1 To maita
+    For ryhma = 1 To ryhmia
+        solu = 0
+            For vko = 1 To viikkoja
+                solu = solu + myy(vko, ryhma, maa)
+            Next
+        Range(mihin_vyk).Cells(maa, ryhma).Value = solu
+    Next
+Next
+
+End Sub
+
+
+
+
+
+EASY
+
+Sub easy()
+
+Dim r, s As Integer
+Dim r_lkm As Integer
+Dim s_lkm As Integer
+Dim kysymys As Integer
+Const e1keltsu = "e1keltsu"
+
+r_lkm = Range("e1keltsu").Rows.Count
+s_lkm = Range("e1keltsu").Columns.Count
+
+
+kysymys = Val(MsgBox("Haluatko punaisia?", vbYesNo))
+
+r = 1
+s = 1
+
+    If kysymys = vbYes Then
+        'punaisia
+        For r = 1 To r_lkm
+            For s = 1 To s_lkm
+                With Range("e1keltsu").Cells(r, s).Interior
+                .Color = 255
+            End With
+            Next s
+        Next r
+    Else
+        'sinisia
+        For r = 1 To r_lkm
+            For s = 1 To s_lkm
+                With Range("e1keltsu").Cells(r, s).Interior
+                .ThemeColor = xlThemeColorLight2
+            End With
+            Next s
+        Next r
+    End If
+
+
+
+End Sub
+
+
+
+
+SIMPPELI
+
+
+Sub simppeli()
+
+Const pieni = "pieni"
+Const iso = "iso"
+
+Dim r, s As Integer
+Dim r_lkm As Integer
+Dim s_lkm As Integer
+Dim pienia, suuria As Integer
+
+r_lkm = 10
+s_lkm = 13
+
+pienia = 0
+suuria = 0
+
+
+For r = 1 To r_lkm
+    For s = 1 To s_lkm
+        If Range("viher1").Cells(r, s).Value < 20 Then
+            pienia = pienia + 1
+        ElseIf Range("viher1").Cells(r, s).Value > 80 Then
+            suuria = suuria + 1
+        End If
+    Next s
+Next r
+
+Range(iso).Cells(1, 1).Value = suuria
+Range(pieni).Cells(1, 1).Value = pienia
+
+End Sub
+
+
+
